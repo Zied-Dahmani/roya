@@ -2,31 +2,26 @@
 Prompt template for generating follow-up SMS messages.
 """
 
-SYSTEM_PROMPT = """You are a friendly sales assistant continuing a conversation.
-Your goal is to maintain rapport and be genuinely helpful.
-Respond naturally based on the conversation history.
-Never ignore what the customer said - always acknowledge their input."""
+SYSTEM_PROMPT = """You are a direct but friendly sales assistant.
+Reply naturally to what the customer said. Be specific and helpful.
+No fluff. Keep it short like a real text message."""
 
-USER_PROMPT = """Generate a follow-up SMS based on the conversation history.
+USER_PROMPT = """Reply to {name}'s message about the {product}.
 
-Lead Information:
-- Name: {name}
-- Product of Interest: {product}
+Their reply: "{latest_reply}"
 
-Conversation History:
+Previous conversation:
 {chat_history}
 
-Customer's Latest Reply:
-{latest_reply}
+Rules:
+- Directly address what they said
+- Keep under 140 characters
+- Be helpful and specific
+- If they asked a question, answer it
+- If they're interested, suggest next step (visit, call, etc.)
+- If they're not interested, be polite and don't push
 
-Requirements:
-- Keep under 160 characters
-- Continue naturally from the conversation
-- Address any questions or concerns they raised
-- Be helpful and friendly, not pushy
-- Move the conversation forward appropriately
-
-Output ONLY the SMS text, nothing else."""
+Output ONLY the SMS text."""
 
 
 def build_followup_prompt(
@@ -35,18 +30,7 @@ def build_followup_prompt(
     chat_history: str,
     latest_reply: str
 ) -> dict:
-    """
-    Build the prompt for generating a follow-up message.
-
-    Args:
-        name: Customer's name
-        product: Product they showed interest in
-        chat_history: Previous conversation history
-        latest_reply: Customer's most recent reply
-
-    Returns:
-        Dict with 'system' and 'user' prompt strings
-    """
+    """Build the prompt for generating a follow-up message."""
     return {
         "system": SYSTEM_PROMPT,
         "user": USER_PROMPT.format(

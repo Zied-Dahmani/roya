@@ -22,6 +22,11 @@ class Settings:
     max_tokens: int
     temperature: float
 
+    # Twilio SMS
+    twilio_account_sid: Optional[str]
+    twilio_auth_token: Optional[str]
+    twilio_phone_number: Optional[str]
+
     @classmethod
     def from_env(cls) -> "Settings":
         """Load settings from environment variables."""
@@ -37,6 +42,9 @@ class Settings:
             model_name=os.getenv("AI_MODEL", "llama-3.1-8b-instant"),
             max_tokens=int(os.getenv("MAX_TOKENS", "150")),
             temperature=float(os.getenv("TEMPERATURE", "0.7")),
+            twilio_account_sid=os.getenv("TWILIO_ACCOUNT_SID"),
+            twilio_auth_token=os.getenv("TWILIO_AUTH_TOKEN"),
+            twilio_phone_number=os.getenv("TWILIO_PHONE_NUMBER"),
         )
 
 

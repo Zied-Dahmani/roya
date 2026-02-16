@@ -2,44 +2,30 @@
 Prompt template for generating first contact SMS messages.
 """
 
-SYSTEM_PROMPT = """You are a friendly sales assistant for a retail business.
-Your goal is to craft warm, personalized SMS messages that feel genuine and helpful.
-Never be pushy or overly salesy. Sound like a helpful friend, not a marketer."""
+SYSTEM_PROMPT = """You are a direct but friendly sales assistant.
+Write short, specific SMS messages that mention the exact product.
+No fluff. Get to the point. Be casual like texting a friend."""
 
-USER_PROMPT = """Generate a first SMS message to a potential customer.
+USER_PROMPT = """Write a short SMS to {name} about the {product} they wanted.
 
-Lead Information:
-- Name: {name}
-- Product of Interest: {product}
-- Last Visit: {last_visit}
+Examples of good messages:
+- "Hey {name}! Still interested in that {product}? We just got new stock in 🔥"
+- "Hi {name}, the {product} you liked is still available. Want me to hold one for you?"
+- "Hey {name}! New {product} models just arrived. Thought of you - want to check them out?"
 
-Requirements:
-- Keep under 160 characters
-- Use their first name naturally
-- Reference their product interest subtly
-- Include a soft, non-pushy call-to-action
-- Sound warm and conversational
+Rules:
+- MUST mention the specific product ({product})
+- Under 140 characters
+- Casual, friendly tone
+- One clear question or call-to-action
+- No generic greetings like "hope you're doing well"
 
-Output ONLY the SMS text, nothing else."""
+Output ONLY the SMS text."""
 
 
 def build_first_message_prompt(name: str, product: str, last_visit: str) -> dict:
-    """
-    Build the prompt for generating a first contact message.
-
-    Args:
-        name: Customer's name
-        product: Product they showed interest in
-        last_visit: Date of their last visit
-
-    Returns:
-        Dict with 'system' and 'user' prompt strings
-    """
+    """Build the prompt for generating a first contact message."""
     return {
         "system": SYSTEM_PROMPT,
-        "user": USER_PROMPT.format(
-            name=name,
-            product=product,
-            last_visit=last_visit or "Unknown"
-        )
+        "user": USER_PROMPT.format(name=name, product=product)
     }
