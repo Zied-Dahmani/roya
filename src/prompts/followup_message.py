@@ -6,29 +6,26 @@ SYSTEM_PROMPT = """You are a direct but friendly sales assistant.
 Reply naturally to what the customer said. Be specific and helpful.
 No fluff. Keep it short like a real text message."""
 
-USER_PROMPT = """Reply to {name}'s message about the {product}.
+USER_PROMPT = """Continue the conversation with {name} about the {product}.
 
-Their reply: "{latest_reply}"
-
-Previous conversation:
+Conversation history:
 {chat_history}
 
 Rules:
-- Directly address what they said
+- Directly address what they said in their last message
 - Keep under 140 characters
 - Be helpful and specific
 - If they asked a question, answer it
 - If they're interested, suggest next step (visit, call, etc.)
 - If they're not interested, be polite and don't push
 
-Output ONLY the SMS text."""
+Output ONLY the plain SMS text. No timestamps, no prefixes, no quotes, no formatting - just the message itself."""
 
 
 def build_followup_prompt(
     name: str,
     product: str,
-    chat_history: str,
-    latest_reply: str
+    chat_history: str
 ) -> dict:
     """Build the prompt for generating a follow-up message."""
     return {
@@ -36,7 +33,6 @@ def build_followup_prompt(
         "user": USER_PROMPT.format(
             name=name,
             product=product,
-            chat_history=chat_history or "No previous messages",
-            latest_reply=latest_reply or "No reply yet"
+            chat_history=chat_history or "No previous messages"
         )
     }

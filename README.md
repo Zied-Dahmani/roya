@@ -1,6 +1,6 @@
 # Roya - AI SMS Agent
 
-AI-powered SMS generation agent using LangGraph and Grok.
+AI-powered SMS generation agent using LangGraph and Groq.
 
 ## Setup
 
@@ -17,9 +17,9 @@ pip install -r requirements.txt
 3. Create a Service Account and download `credentials.json`
 4. Share your Google Sheet with the service account email
 
-### 3. Grok API Setup
+### 3. Groq API Setup
 
-1. Get your API key from [xAI](https://x.ai/)
+1. Get your API key from [Groq](https://console.groq.com/)
 2. Add to `.env` file
 
 ### 4. Configure Environment
@@ -33,8 +33,8 @@ cp .env.example .env
 
 Create a sheet with these columns:
 
-| Name | Phone | Product | Last Visit | SMS Sent | Reply | Chat History |
-|------|-------|---------|------------|----------|-------|--------------|
+| Name | Phone | Product | Last Visit | SMS Sent | Chat History |
+|------|-------|---------|------------|----------|--------------|
 
 ## Usage
 
@@ -45,7 +45,7 @@ python main.py
 The agent will:
 1. Fetch leads from Google Sheet
 2. Classify each as first contact or follow-up
-3. Generate personalized SMS using Grok
+3. Generate personalized SMS using Groq
 4. Display SMS in console for manual sending
 5. Optionally update sheet with chat history
 

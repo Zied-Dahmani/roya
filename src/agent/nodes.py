@@ -13,7 +13,7 @@ def classify_message_type(state: AgentState) -> AgentState:
     """Determine if this is a first message or follow-up."""
     lead = state["lead"]
 
-    if lead.has_been_contacted and lead.has_replied:
+    if lead.has_chat_history:
         state["message_type"] = MessageType.FOLLOWUP.value
     else:
         state["message_type"] = MessageType.FIRST.value
@@ -37,8 +37,7 @@ def generate_sms(state: AgentState, groq_client: GroqClient) -> AgentState:
             prompt = build_followup_prompt(
                 name=lead.first_name,
                 product=lead.product,
-                chat_history=format_chat_history(lead.chat_history),
-                latest_reply=lead.reply or ""
+                chat_history=format_chat_history(lead.chat_history)
             )
 
         sms = groq_client.generate(prompt["system"], prompt["user"])

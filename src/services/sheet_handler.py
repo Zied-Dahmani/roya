@@ -120,17 +120,6 @@ class SheetHandler:
         col = SheetColumn.CHAT_HISTORY.value + 1
         self.worksheet.update_cell(row_number, col, history)
 
-    def update_reply(self, row_number: int, reply: str) -> None:
-        """
-        Update the Reply column for a lead (manual entry helper).
-
-        Args:
-            row_number: The row to update
-            reply: The customer's reply
-        """
-        col = SheetColumn.REPLY.value + 1
-        self.worksheet.update_cell(row_number, col, reply)
-
     def batch_update(self, row_number: int, sms_sent: str, chat_history: str) -> None:
         """
         Update both SMS Sent and Chat History in one API call.

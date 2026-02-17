@@ -12,8 +12,7 @@ class SheetColumn(int, Enum):
     PRODUCT = 2
     LAST_VISIT = 3
     SMS_SENT = 4
-    REPLY = 5
-    CHAT_HISTORY = 6
+    CHAT_HISTORY = 5
 
 
 class MessageType(str, Enum):
@@ -22,5 +21,5 @@ class MessageType(str, Enum):
     FOLLOWUP = "followup"
 
 
-SHEET_HEADERS = ["Name", "Phone", "Product", "Last Visit", "SMS Sent", "Reply", "Chat History"]
+SHEET_HEADERS = ["Name", "Phone", "Product", "Last Visit", "SMS Sent", "Chat History"]
 MAX_SMS_LENGTH = 160

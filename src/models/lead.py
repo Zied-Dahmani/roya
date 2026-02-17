@@ -16,7 +16,6 @@ class Lead:
     product: str
     last_visit: Optional[str] = None
     sms_sent: Optional[str] = None
-    reply: Optional[str] = None
     chat_history: Optional[str] = None
 
     @property
@@ -30,14 +29,14 @@ class Lead:
         return bool(self.sms_sent and self.sms_sent.strip())
 
     @property
-    def has_replied(self) -> bool:
-        """Check if lead has replied."""
-        return bool(self.reply and self.reply.strip())
+    def has_chat_history(self) -> bool:
+        """Check if lead has previous conversation."""
+        return bool(self.chat_history and self.chat_history.strip())
 
     @property
     def needs_followup(self) -> bool:
         """Check if lead needs a follow-up message."""
-        return self.has_been_contacted and self.has_replied
+        return self.has_chat_history
 
     def to_dict(self) -> dict:
         """Convert to dictionary for serialization."""
@@ -48,7 +47,6 @@ class Lead:
             "product": self.product,
             "last_visit": self.last_visit,
             "sms_sent": self.sms_sent,
-            "reply": self.reply,
             "chat_history": self.chat_history,
         }
 
@@ -78,6 +76,5 @@ class Lead:
             product=safe_get(2) or "",
             last_visit=safe_get(3),
             sms_sent=safe_get(4),
-            reply=safe_get(5),
-            chat_history=safe_get(6),
+            chat_history=safe_get(5),
         )
